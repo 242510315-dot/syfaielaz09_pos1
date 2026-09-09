@@ -35,13 +35,27 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    // Tentang
-    Route::get('/tentang', function () {
-        return view('tentang.index');
-    })->name('tentang');
+   // =========================
+// TENTANG
+// =========================
+
+// Tentang Diri Pengguna
+Route::get('/tentang', function () {
+    return view('tentang.index');
+})->name('tentang');
+
+// Tentang Aplikasi POS
+Route::get('/tentang-aplikasi', function () {
+    return view('tentang-aplikasi.index');
+})->name('tentang-aplikasi');
+
+    // =========================
+    // LOGOUT
+    // =========================
 
     Route::post('/logout', [AuthController::class, 'logout'])
         ->name('logout');
+
 
     // =========================
     // ADMIN ONLY
@@ -56,6 +70,7 @@ Route::middleware('auth')->group(function () {
 
         });
 
+
     // =========================
     // ADMIN + KASIR
     // =========================
@@ -63,16 +78,22 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['role:admin,kasir'])
         ->group(function () {
 
+            // Produk
             Route::resource('produk', ProdukController::class);
 
+            // Jenis Produk
             Route::resource('jenis-produk', JenisProdukController::class);
 
+            // Penjualan
             Route::resource('penjualan', PenjualanController::class);
 
-            Route::get('/penjualan/{penjualan}/struk',
-                [PenjualanController::class, 'struk'])
-                ->name('penjualan.struk');
+            // Cetak Struk
+            Route::get(
+                '/penjualan/{penjualan}/struk',
+                [PenjualanController::class, 'struk']
+            )->name('penjualan.struk');
 
+            // Item Penjualan
             Route::resource('itempenjualan', ItemPenjualanController::class)
                 ->only([
                     'store',
@@ -80,4 +101,5 @@ Route::middleware('auth')->group(function () {
                     'destroy'
                 ]);
         });
+
 });

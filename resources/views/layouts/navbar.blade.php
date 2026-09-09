@@ -15,7 +15,7 @@
                 </span>
 
                 <div class="brand-text">
-                    <b>SyifaMart</b>
+                    <b>VeggieGo</b>
                     <small>Belanja, Beres!</small>
                 </div>
 
@@ -60,7 +60,9 @@
                     </li>
 
 
-                    {{-- ADMIN ONLY --}}
+                    {{-- =========================
+                         ADMIN ONLY
+                    ========================== --}}
                     @if(auth()->check() && auth()->user()->role?->name === 'admin')
 
                         {{-- USERS --}}
@@ -112,14 +114,15 @@
                         </a>
                     </li>
 
-
-                    {{-- TENTANG --}}
+                    {{-- =========================
+                         TENTANG APLIKASI POS
+                    ========================== --}}
                     <li class="nav-item">
                         <a
-                            class="nav-link {{ Request::is('tentang') ? 'active' : '' }}"
-                            href="{{ route('tentang') }}"
+                            class="nav-link {{ Request::is('tentang-aplikasi') ? 'active' : '' }}"
+                            href="{{ route('tentang-aplikasi') }}"
                         >
-                            <i class="bi bi-person-fill"></i>
+                            <i class="bi bi-info-circle-fill"></i>
                             <span>Tentang</span>
                         </a>
                     </li>
@@ -130,21 +133,18 @@
 
 
             {{-- =========================
-                 USER AREA
+                 DATA DIRI + LOGOUT
             ========================== --}}
             <div class="user-area">
 
-                {{-- USER NAME --}}
-                <div class="hello-user">
-
-                    <i class="bi bi-person-circle"></i>
-
-                    <span>
-                        Hai,
-                        {{ auth()->check() ? auth()->user()->name : 'User' }}
-                    </span>
-
-                </div>
+                {{-- TENTANG DATA DIRI --}}
+                <a
+                    href="{{ route('tentang') }}"
+                    class="data-diri-btn"
+                >
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profile</span>
+                </a>
 
 
                 {{-- LOGOUT --}}
@@ -226,6 +226,7 @@
 
 
 @keyframes floatSparkle {
+
     0%,
     100% {
         transform: translateY(0);
@@ -234,6 +235,7 @@
     50% {
         transform: translateY(-4px);
     }
+
 }
 
 
@@ -334,6 +336,7 @@
 
 
 .brand-cute:hover .logo-circle {
+
     transform:
         rotate(-8deg)
         scale(1.05);
@@ -365,6 +368,7 @@
     display: flex;
 
     flex-direction: row !important;
+
     align-items: center;
     justify-content: center;
 
@@ -391,6 +395,7 @@
 ========================================= */
 
 .menu-cute .nav-link {
+
     color: white !important;
 
     background: rgba(255, 255, 255, .18);
@@ -423,6 +428,7 @@
 ========================================= */
 
 .menu-cute .nav-link i {
+
     font-size: 14px;
 
     transition:
@@ -435,6 +441,7 @@
 ========================================= */
 
 .menu-cute .nav-link:hover {
+
     background: white;
 
     color: #5D7C65 !important;
@@ -447,6 +454,7 @@
 
 
 .menu-cute .nav-link:hover i {
+
     transform: scale(1.15);
 }
 
@@ -456,6 +464,7 @@
 ========================================= */
 
 .menu-cute .nav-link.active {
+
     background: white !important;
 
     color: #5D7C65 !important;
@@ -470,6 +479,7 @@
 ========================================= */
 
 .user-area {
+
     display: flex;
     align-items: center;
 
@@ -482,20 +492,21 @@
 
 
 /* =========================================
-   HELLO USER
+   TENTANG DATA DIRI
 ========================================= */
 
-.hello-user {
+.data-diri-btn {
+
     color: white;
 
     background: rgba(255, 255, 255, .18);
 
-    padding: 8px 13px;
+    padding: 8px 15px;
 
     border-radius: 30px;
 
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
 
     white-space: nowrap;
 
@@ -507,11 +518,29 @@
     align-items: center;
 
     gap: 6px;
+
+    text-decoration: none;
+
+    transition: all .25s ease;
 }
 
 
-.hello-user i {
+.data-diri-btn i {
+
     font-size: 15px;
+}
+
+
+.data-diri-btn:hover {
+
+    background: white;
+
+    color: #5D7C65;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 16px rgba(74, 90, 78, .15);
 }
 
 
@@ -525,6 +554,7 @@
 
 
 .logout-btn {
+
     background: white;
 
     color: #5D7C65;
@@ -553,6 +583,7 @@
 
 
 .logout-btn:hover {
+
     background: #eef2ea;
 
     color: #4A5A4E;
@@ -569,6 +600,7 @@
 ========================================= */
 
 .navbar-toggler {
+
     display: none;
 
     border: none !important;
@@ -589,6 +621,7 @@
 
 
 .navbar-toggler:focus {
+
     box-shadow:
         0 0 0 3px rgba(255, 255, 255, .3);
 }
@@ -614,17 +647,25 @@
 @media (max-width: 1199px) {
 
     .menu-cute .nav-link {
+
         padding: 8px 10px !important;
+
         font-size: 12px;
     }
 
-    .hello-user {
+
+    .data-diri-btn {
+
         padding: 8px 10px;
+
         font-size: 11px;
     }
 
+
     .logout-btn {
+
         padding: 8px 12px;
+
         font-size: 12px;
     }
 
@@ -638,34 +679,45 @@
 @media (max-width: 991px) {
 
     .cute-navbar {
+
         border-radius: 22px;
+
         padding: 14px 18px;
     }
 
 
     .cute-navbar::before {
+
         display: none;
     }
 
 
     .navbar-top-row {
+
         flex-wrap: wrap;
+
         row-gap: 10px;
     }
 
 
-    /* Toggle muncul */
+    /* Toggle */
+
     .navbar-toggler {
+
         display: block;
+
         margin-left: auto;
     }
 
 
-    /* Menu turun ke bawah */
+    /* Menu */
+
     .navbar-collapse-edge {
+
         order: 4;
 
         flex-basis: 100%;
+
         width: 100%;
 
         margin-top: 8px;
@@ -675,6 +727,7 @@
 
 
     .menu-cute {
+
         width: 100%;
 
         flex-direction: column !important;
@@ -686,11 +739,13 @@
 
 
     .menu-cute .nav-item {
+
         width: 100%;
     }
 
 
     .menu-cute .nav-link {
+
         width: 100%;
 
         margin: 3px 0;
@@ -701,8 +756,10 @@
     }
 
 
-    /* User */
+    /* User area */
+
     .user-area {
+
         order: 3;
 
         width: 100%;
@@ -710,6 +767,14 @@
         margin-left: 0;
 
         justify-content: space-between;
+    }
+
+
+    .data-diri-btn {
+
+        flex: 1;
+
+        justify-content: center;
     }
 
 }
@@ -722,22 +787,27 @@
 @media (max-width: 576px) {
 
     .cute-navbar {
+
         padding: 12px;
+
         border-radius: 20px;
     }
 
 
     .brand-cute b {
+
         font-size: 15px;
     }
 
 
     .brand-cute small {
+
         font-size: 9px;
     }
 
 
     .logo-circle {
+
         width: 44px;
         height: 44px;
 
@@ -745,7 +815,8 @@
     }
 
 
-    .hello-user {
+    .data-diri-btn {
+
         font-size: 11px;
 
         padding: 9px 11px;
@@ -753,6 +824,7 @@
 
 
     .logout-btn {
+
         padding: 9px 13px;
 
         font-size: 11px;
