@@ -9,7 +9,7 @@
 <div class="container">
 
     <h1 class="fw-bold mb-4">
-        🏷️ Edit Jenis Produk
+        <i class="bi bi-tags-fill"></i> Edit Jenis Produk
     </h1>
 
     <div class="card shadow-sm">

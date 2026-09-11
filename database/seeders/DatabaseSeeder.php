@@ -18,10 +18,12 @@ class DatabaseSeeder extends Seeder
         PenjualanSeeder::class,
     ]);
 
-    User::create([
+    User::updateOrCreate(
+        ['email' => 'admin@gmail.com'],
+        [
         'name' => 'Admin',
-        'email' => 'admin@gmail.com',
         'password' => Hash::make('12345678'),
-    ]);
+        ]
+    );
 }
 }
