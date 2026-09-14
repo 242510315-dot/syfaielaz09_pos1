@@ -138,38 +138,38 @@
         <div class="beranda-hero-content">
             <div class="beranda-kicker">
                 <i class="bi bi-stars"></i>
-                Selamat datang di VeggieGo
+                Healthy company
             </div>
 
             <h1>Belanja, beres!</h1>
 
             <p>
-                Kelola produk, persediaan, dan transaksi penjualan dengan lebih mudah dari satu tempat.
+                Healthy company (atau lebih populer disebut wellness company / health and wellness industry)
+                 merujuk pada sektor korporasi yang bergerak di bidang penyediaan produk, layanan, dan 
+                 ekosistem pendukung kesehatan serta kebugaran tubuh manusia. Industri ini terus berkembang dari sekadar penyedia obat-obatan tradisional hingga menjadi ekosistem digital dan gaya hidup holistik.
             </p>
 
             <div class="beranda-actions">
                 <a href="{{ route('dashboard') }}" class="btn btn-light">
                     <i class="bi bi-speedometer2"></i> Buka Dashboard
                 </a>
-                <a href="{{ route('penjualan.index') }}" class="btn btn-outline-light">
-                    <i class="bi bi-cart-check"></i> Lihat Penjualan
-                </a>
             </div>
         </div>
     </section>
 
     <section class="beranda-section">
-        <h2 class="beranda-section-title">Akses cepat</h2>
+        <h2 class="beranda-section-title"></h2>
 
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="beranda-card">
                     <div class="beranda-card-icon"><i class="bi bi-box-seam-fill"></i></div>
-                    <h3>Produk</h3>
-                    <p>Kelola daftar produk dan stok yang tersedia.</p>
-                    <a href="{{ route('produk.index') }}" class="btn btn-outline-success btn-sm">
-                        Kelola Produk <i class="bi bi-arrow-right"></i>
-                    </a>
+                    <h3>Jenis</h3>
+                    <p>Jenis perusahaan kesehatan (healthy/wellness company) atau bentuk layanan
+                         kesehatan bagi korporasi dapat dikelompokkan ke dalam beberapa kategori utama,
+                          tergantung dari sisi produk yang diproduksi untuk konsumen atau layanan kesehatan yang 
+                          disediakan khusus untuk karyawan perusahaan (B2B)</p>
+                
                 </div>
             </div>
 
@@ -178,19 +178,19 @@
                     <div class="beranda-card-icon"><i class="bi bi-cart-check-fill"></i></div>
                     <h3>Penjualan</h3>
                     <p>Catat dan pantau transaksi penjualan harian.</p>
-                    <a href="{{ route('penjualan.index') }}" class="btn btn-outline-success btn-sm">
-                        Buka Penjualan <i class="bi bi-arrow-right"></i>
-                    </a>
+                
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="beranda-card">
                     <div class="beranda-card-icon"><i class="bi bi-info-circle-fill"></i></div>
-                    <h3>Tentang VeggieGo</h3>
-                    <p>Kenali fitur dan tujuan aplikasi POS ini.</p>
+                    <h3>Sejarah</h3>
+                    <p>Alfamart bermula dari sebuah perusahaan dagang aneka produk 
+                        yang didirikan oleh Djoko Susanto dan keluarganya pada tahun 1989.
+                        </p>
                     <a href="{{ route('tentang-aplikasi') }}" class="btn btn-outline-success btn-sm">
-                        Selengkapnya <i class="bi bi-arrow-right"></i>
+                        Kembali <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
             </div>

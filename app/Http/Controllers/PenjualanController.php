@@ -38,16 +38,20 @@ class PenjualanController extends Controller
 
     public function create()
     {
-        $sale = Penjualan::firstOrCreate(
-            [
+        $sale = Penjualan::where('user_id', Auth::id())
+            ->where('status', 'OPEN')
+            ->first();
+
+        if (! $sale) {
+            $sale = Penjualan::create([
                 'user_id' => Auth::id(),
-                'status' => 'OPEN'
-            ],
-            [
+                'status' => 'OPEN',
                 'total_pembayaran' => 0,
-            
-            ]
-        );
+                'metode_pembayaran' => '',
+                'uang_dibayar' => 0,
+                'kembalian' => 0,
+            ]);
+        }
 
         $products = Produk::orderBy('nama')->get();
 
