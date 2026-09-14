@@ -131,7 +131,7 @@
 
                     <small>
                         <i class="bi bi-check-circle-fill"></i>
-                        Pembayaran CASH
+                        Pembayaran Tunai
                     </small>
                 </div>
             </div>
@@ -156,7 +156,7 @@
 
                     <small>
                         <i class="bi bi-credit-card-fill"></i>
-                        Pembayaran non-tunai
+                        Pembayaran qris / non-tunai
                     </small>
                 </div>
             </div>

@@ -6,7 +6,7 @@
 
             
             <a class="navbar-brand brand-cute"
-               href="<?php echo e(route('dashboard')); ?>">
+               href="<?php echo e(route('beranda')); ?>">
 
                 <span class="logo-circle">
                     <i class="bi bi-cart3"></i>

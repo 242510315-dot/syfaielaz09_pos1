@@ -56,7 +56,7 @@
                            placeholder="Cari jenis produk...">
 
                     <button class="btn btn-outline-primary">
-                        <i class="bi bi-search"></i> Search
+                        <i class="bi bi-search"></i> Pencarian
                     </button>
 
                 </div>

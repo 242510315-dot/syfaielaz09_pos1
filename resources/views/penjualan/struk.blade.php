@@ -139,8 +139,8 @@
             </div>
 
 
-            {{-- KHUSUS TUNAI --}}
-            @if(strtoupper($penjualan->metode_pembayaran ?? '') === 'TUNAI')
+            {{-- KHUSUS CASH --}}
+            @if(in_array(strtoupper($penjualan->metode_pembayaran ?? ''), ['TUNAI', 'CASH'], true))
 
                 <div class="d-flex justify-content-between mb-2">
 
@@ -174,7 +174,7 @@
 
         {{-- UCAPAN --}}
         <h5 class="text-center fw-bold mb-3">
-            Terima kasih telah berbelanja di VeggieGo 💚
+            Terima kasih telah berbelanja di VeggieGo
         </h5>
 
         {{-- CETAK --}}

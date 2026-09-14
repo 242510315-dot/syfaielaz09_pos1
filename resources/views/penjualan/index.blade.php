@@ -36,7 +36,7 @@
                         placeholder="Search penjualan...">
 
                     <button class="btn btn-outline-primary" type="submit">
-                        <i class="bi bi-search"></i> Search
+                        <i class="bi bi-search"></i> Pencarian
                     </button>
 
                 </div>

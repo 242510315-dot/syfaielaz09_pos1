@@ -45,7 +45,7 @@ class PenjualanController extends Controller
             ],
             [
                 'total_pembayaran' => 0,
-                'metode_pembayaran' => 'CASH'
+            
             ]
         );
 

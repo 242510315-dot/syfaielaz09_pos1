@@ -309,6 +309,28 @@
 
         </div>
 
+        
+        <!-- TENTANG -->
+          <div class="col-md-6 col-lg-4">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    <i class="bi bi-info-circle-fill"></i>
+                </div>
+
+                <div>
+                    <h3>Tentang</h3>
+
+                    <p>
+                        Melihat informasi tentang aplikasi VeggieGo, termasuk versi dan fitur utama.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
 
 
     <!-- ========================= -->

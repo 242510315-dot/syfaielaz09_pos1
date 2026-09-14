@@ -8,7 +8,7 @@
                  LOGO
             ========================== --}}
             <a class="navbar-brand brand-cute"
-               href="{{ route('dashboard') }}">
+               href="{{ route('beranda') }}">
 
                 <span class="logo-circle">
                     <i class="bi bi-cart3"></i>
@@ -137,7 +137,7 @@
             ========================== --}}
             <div class="user-area">
 
-                {{-- TENTANG DATA DIRI --}}
+                {{-- PROFILE --}}
                 <a
                     href="{{ route('tentang') }}"
                     class="data-diri-btn"

@@ -35,19 +35,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-   // =========================
-// TENTANG
-// =========================
+    Route::view('/beranda', 'beranda.index')
+        ->name('beranda');
 
-// Tentang Diri Pengguna
-Route::get('/tentang', function () {
-    return view('tentang.index');
-})->name('tentang');
+    // =========================
+    // TENTANG
+    // =========================
 
-// Tentang Aplikasi POS
-Route::get('/tentang-aplikasi', function () {
-    return view('tentang-aplikasi.index');
-})->name('tentang-aplikasi');
+    // Tentang Diri Pengguna
+    Route::get('/tentang', function () {
+        return view('tentang.index');
+    })->name('tentang');
+
+    // Tentang Aplikasi POS
+    Route::get('/tentang-aplikasi', function () {
+        return view('tentang-aplikasi.index');
+    })->name('tentang-aplikasi');
 
     // =========================
     // LOGOUT

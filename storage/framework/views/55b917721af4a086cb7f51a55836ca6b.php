@@ -455,7 +455,7 @@ body {
 
 
             <div class="footer-text">
-                © POS SYIFA
+                © VeggieGO
             </div>
 
 
