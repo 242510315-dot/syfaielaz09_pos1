@@ -64,10 +64,10 @@
                             value="<?php echo e($product->id); ?>"
                         >
 
-                        <div class="row align-items-center">
+                        <div class="row align-items-center g-2">
 
                             
-                            <div class="col-7">
+                            <div class="col-6">
 
                                 <button
                                     type="submit"
@@ -132,7 +132,23 @@
 
 
                             
-                            <div class="col-3">
+                            <div class="col-2">
+                                <select
+                                    name="discount_percentage"
+                                    class="form-select form-select-sm"
+                                    <?php echo e($sale->status === 'COMPLETED' ? 'disabled' : ''); ?>
+
+                                >
+                                    <?php for($discount = 0; $discount <= 50; $discount += 5): ?>
+                                        <option value="<?php echo e($discount); ?>" <?php echo e($discount == 30 ? 'selected' : ''); ?>>
+                                            <?php echo e($discount); ?>%
+                                        </option>
+                                    <?php endfor; ?>
+                                </select>
+                            </div>
+
+                            
+                            <div class="col-2">
 
                                 <input
                                     type="number"
@@ -211,7 +227,7 @@
                         <td>
                             Rp <?php echo e(number_format($item->harga_satuan, 0, ',', '.')); ?>
 
-                            <small class="text-danger d-block">Diskon 30%</small>
+                            <small class="text-danger d-block">Diskon <?php echo e($item->diskon_persen ?? 30); ?>%</small>
                         </td>
 
 
@@ -226,14 +242,28 @@
                                 <?php echo csrf_field(); ?>
                                 <?php echo method_field('PUT'); ?>
 
-                                <input
-                                    type="number"
-                                    name="quantity"
-                                    value="<?php echo e($item->kuantitas); ?>"
-                                    min="1"
-                                    class="form-control form-control-sm"
-                                    onchange="this.form.submit()"
-                                >
+                                <div class="d-flex flex-column gap-2">
+                                    <input
+                                        type="number"
+                                        name="quantity"
+                                        value="<?php echo e($item->kuantitas); ?>"
+                                        min="1"
+                                        class="form-control form-control-sm"
+                                        onchange="this.form.submit()"
+                                    >
+
+                                    <select
+                                        name="discount_percentage"
+                                        class="form-select form-select-sm"
+                                        onchange="this.form.submit()"
+                                    >
+                                        <?php for($discount = 0; $discount <= 50; $discount += 5): ?>
+                                            <option value="<?php echo e($discount); ?>" <?php echo e(($item->diskon_persen ?? 30) == $discount ? 'selected' : ''); ?>>
+                                                <?php echo e($discount); ?>%
+                                            </option>
+                                        <?php endfor; ?>
+                                    </select>
+                                </div>
 
                             </form>
 
