@@ -196,8 +196,11 @@
             Cetak Struk
         </button>
 
-    </div>
+        <a href="<?php echo e(route('dashboard')); ?>" class="btn btn-secondary">
+            <i class=""></i> Kembali
+        </a>
 
+    </div>
 </div>
 
 

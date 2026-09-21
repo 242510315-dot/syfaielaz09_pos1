@@ -165,7 +165,7 @@
 
         @can('create', App\Models\Produk::class)
             <a href="{{ route('produk.create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Tambah Produk
+                <i class="bi bi-plus-lg"></i> Produk
             </a>
         @endcan
 

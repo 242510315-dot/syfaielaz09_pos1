@@ -186,8 +186,11 @@
             Cetak Struk
         </button>
 
-    </div>
+        <a href="{{ route('dashboard') }}" class="btn btn-secondary">
+            <i class=""></i> Kembali
+        </a>
 
+    </div>
 </div>
 
 

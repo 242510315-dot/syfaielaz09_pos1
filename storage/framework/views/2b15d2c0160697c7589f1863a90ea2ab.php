@@ -165,7 +165,7 @@
 
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', App\Models\Produk::class)): ?>
             <a href="<?php echo e(route('produk.create')); ?>" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Tambah Produk
+                <i class="bi bi-plus-lg"></i> Produk
             </a>
         <?php endif; ?>
 
