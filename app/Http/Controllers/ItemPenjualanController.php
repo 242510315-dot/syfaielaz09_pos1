@@ -18,7 +18,8 @@ class ItemPenjualanController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:produk,id',
-            'quantity'   => 'required|integer|min:1'
+            'quantity'   => 'required|integer|min:1',
+            'discount_percentage' => 'nullable|integer|min:0|max:100',
         ]);
 
 
@@ -33,6 +34,8 @@ class ItemPenjualanController extends Controller
 
                 $product = Produk::lockForUpdate()
                     ->findOrFail($request->product_id);
+
+                $discount = (int) $request->input('discount_percentage', Produk::DISCOUNT_PERCENTAGE);
 
 
                 // cek stok
@@ -51,10 +54,13 @@ class ItemPenjualanController extends Controller
                     ->lockForUpdate()
                     ->first();
 
+                $hargaSatuan = $product->hargaSetelahDiskon($discount);
 
                 if ($item) {
 
                     $item->kuantitas += $request->quantity;
+                    $item->diskon_persen = $discount;
+                    $item->harga_satuan = $hargaSatuan;
 
                 } else {
 
@@ -62,7 +68,8 @@ class ItemPenjualanController extends Controller
                         'penjualan_id' => $sale->id,
                         'produk_id'    => $product->id,
                         'kuantitas'    => $request->quantity,
-                        'harga_satuan' => $product->hargaSetelahDiskon(),
+                        'harga_satuan' => $hargaSatuan,
+                        'diskon_persen' => $discount,
                     ]);
 
                 }
@@ -106,7 +113,8 @@ class ItemPenjualanController extends Controller
     public function update(Request $request, ItemPenjualan $itempenjualan)
     {
         $request->validate([
-            'quantity' => 'required|integer|min:1'
+            'quantity' => 'required|integer|min:1',
+            'discount_percentage' => 'nullable|integer|min:0|max:100',
         ]);
 
 
@@ -119,6 +127,7 @@ class ItemPenjualanController extends Controller
                     ->lockForUpdate()
                     ->first();
 
+                $discount = (int) $request->input('discount_percentage', $itempenjualan->diskon_persen ?? Produk::DISCOUNT_PERCENTAGE);
 
                 $selisih =
                     $request->quantity - $itempenjualan->kuantitas;
@@ -149,16 +158,17 @@ class ItemPenjualanController extends Controller
 
                 }
 
-
+                $itempenjualan->harga_satuan = $produk->hargaSetelahDiskon($discount);
 
                 // update item
                 $itempenjualan->update([
 
                     'kuantitas' => $request->quantity,
-
+                    'diskon_persen' => $discount,
+                    'harga_satuan' => $itempenjualan->harga_satuan,
                     'subtotal' =>
                         $request->quantity *
-                        $itempenjualan->harga_satuan
+                        $itempenjualan->harga_satuan,
 
                 ]);
 

@@ -116,8 +116,10 @@
                                             </div>
 
                                             <small class="text-muted">
-                                                Rp <?php echo e(number_format($product->harga_jual, 0, ',', '.')); ?>
+                                                Rp <?php echo e(number_format($product->hargaSetelahDiskon(), 0, ',', '.')); ?>
 
+                                                <del>Rp <?php echo e(number_format($product->harga_jual, 0, ',', '.')); ?></del>
+                                                <span class="text-danger">Diskon 30%</span>
                                             </small>
 
                                         </div>
@@ -207,8 +209,9 @@
 
                         
                         <td>
-                            Rp <?php echo e(number_format($item->produk->harga_jual, 0, ',', '.')); ?>
+                            Rp <?php echo e(number_format($item->harga_satuan, 0, ',', '.')); ?>
 
+                            <small class="text-danger d-block">Diskon 30%</small>
                         </td>
 
 

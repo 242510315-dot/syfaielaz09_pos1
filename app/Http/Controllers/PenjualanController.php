@@ -89,7 +89,8 @@ class PenjualanController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:produk,id',
-            'quantity' => 'required|integer|min:1'
+            'quantity' => 'required|integer|min:1',
+            'discount_percentage' => 'nullable|integer|min:0|max:100',
         ]);
 
         $sale = Penjualan::where('user_id', Auth::id())
@@ -97,24 +98,30 @@ class PenjualanController extends Controller
             ->firstOrFail();
 
         $produk = Produk::findOrFail($request->product_id);
+        $discount = (int) $request->input('discount_percentage', Produk::DISCOUNT_PERCENTAGE);
 
-        DB::transaction(function () use ($sale, $produk, $request) {
+        DB::transaction(function () use ($sale, $produk, $request, $discount) {
 
             $item = $sale->itemPenjualan()
                 ->where('produk_id', $produk->id)
                 ->first();
 
+            $hargaSatuan = $produk->hargaSetelahDiskon($discount);
+
             if ($item) {
 
                 $item->kuantitas += $request->quantity;
+                $item->diskon_persen = $discount;
+                $item->harga_satuan = $hargaSatuan;
 
             } else {
 
                 $item = $sale->itemPenjualan()->create([
                     'produk_id' => $produk->id,
                     'kuantitas' => $request->quantity,
-                    'harga_satuan' => $produk->hargaSetelahDiskon(),
-                    'subtotal' => $request->quantity * $produk->hargaSetelahDiskon()
+                    'harga_satuan' => $hargaSatuan,
+                    'diskon_persen' => $discount,
+                    'subtotal' => $request->quantity * $hargaSatuan,
                 ]);
             }
 

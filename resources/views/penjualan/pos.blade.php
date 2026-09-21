@@ -62,10 +62,10 @@
                             value="{{ $product->id }}"
                         >
 
-                        <div class="row align-items-center">
+                        <div class="row align-items-center g-2">
 
                             {{-- PRODUK --}}
-                            <div class="col-7">
+                            <div class="col-6">
 
                                 <button
                                     type="submit"
@@ -126,8 +126,23 @@
                             </div>
 
 
+                            {{-- DISKON --}}
+                            <div class="col-2">
+                                <select
+                                    name="discount_percentage"
+                                    class="form-select form-select-sm"
+                                    {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}
+                                >
+                                    @for ($discount = 0; $discount <= 50; $discount += 5)
+                                        <option value="{{ $discount }}" {{ $discount == 30 ? 'selected' : '' }}>
+                                            {{ $discount }}%
+                                        </option>
+                                    @endfor
+                                </select>
+                            </div>
+
                             {{-- JUMLAH --}}
-                            <div class="col-3">
+                            <div class="col-2">
 
                                 <input
                                     type="number"
@@ -202,7 +217,7 @@
                         {{-- HARGA --}}
                         <td>
                             Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}
-                            <small class="text-danger d-block">Diskon 30%</small>
+                            <small class="text-danger d-block">Diskon {{ $item->diskon_persen ?? 30 }}%</small>
                         </td>
 
 
@@ -217,14 +232,28 @@
                                 @csrf
                                 @method('PUT')
 
-                                <input
-                                    type="number"
-                                    name="quantity"
-                                    value="{{ $item->kuantitas }}"
-                                    min="1"
-                                    class="form-control form-control-sm"
-                                    onchange="this.form.submit()"
-                                >
+                                <div class="d-flex flex-column gap-2">
+                                    <input
+                                        type="number"
+                                        name="quantity"
+                                        value="{{ $item->kuantitas }}"
+                                        min="1"
+                                        class="form-control form-control-sm"
+                                        onchange="this.form.submit()"
+                                    >
+
+                                    <select
+                                        name="discount_percentage"
+                                        class="form-select form-select-sm"
+                                        onchange="this.form.submit()"
+                                    >
+                                        @for ($discount = 0; $discount <= 50; $discount += 5)
+                                            <option value="{{ $discount }}" {{ ($item->diskon_persen ?? 30) == $discount ? 'selected' : '' }}>
+                                                {{ $discount }}%
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
 
                             </form>
 

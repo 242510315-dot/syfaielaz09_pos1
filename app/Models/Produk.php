@@ -23,9 +23,12 @@ class Produk extends Model
         'foto',
     ];
 
-    public function hargaSetelahDiskon(): int
+    public function hargaSetelahDiskon(?int $discountPercentage = null): int
     {
-        return (int) round($this->harga_jual * (100 - self::DISCOUNT_PERCENTAGE) / 100);
+        $discount = $discountPercentage ?? self::DISCOUNT_PERCENTAGE;
+        $discount = max(0, min(100, $discount));
+
+        return (int) round($this->harga_jual * (100 - $discount) / 100);
     }
 
     public function hargaBeliOtomatis(): int
