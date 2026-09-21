@@ -3,7 +3,6 @@
 <?php if(!empty($produk->foto)): ?>
     <div class="mb-2">
         <label>Foto Saat Ini</label><br>
-
         <img src="<?php echo e(asset('storage/' . $produk->foto)); ?>"
              width="150"
              class="img-thumbnail">
@@ -45,14 +44,12 @@ unset($__errorArgs, $__bag); ?>
 
 
     <div class="col">
-
         <label>Preview Foto</label><br>
 
         <img id="preview"
              class="img-thumbnail mt-2"
              style="display:none"
              width="150">
-
     </div>
 
 </div>
@@ -74,7 +71,6 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
            value="<?php echo e(old('name', $produk->nama ?? '')); ?>">
-
 
     <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -98,7 +94,6 @@ unset($__errorArgs, $__bag); ?>
 
     <label>Jenis Produk</label>
 
-
     <select name="jenis_produk_id"
             class="form-control <?php $__errorArgs = ['jenis_produk_id'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -109,16 +104,13 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>">
 
-
         <option value="">
             -- Pilih Jenis Produk --
         </option>
 
-
         <?php $__currentLoopData = $jenisProduks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jenis): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
             <option value="<?php echo e($jenis->id); ?>"
-
                 <?php echo e(old(
                     'jenis_produk_id',
                     $produk->jenis_produk_id ?? ''
@@ -129,43 +121,37 @@ unset($__errorArgs, $__bag); ?>">
 
             </option>
 
-
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-
     </select>
-
 
     <?php $__errorArgs = ['jenis_produk_id'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-
         <div class="invalid-feedback">
-
             <?php echo e($message); ?>
 
-
         </div>
-
     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-
 
 </div>
 
 
 
 
+
 <div class="mb-3">
 
-    <label>Harga Beli (otomatis)</label>
+    <label>Harga Beli</label>
 
     <input type="number"
            name="purchase_price"
+           id="purchase_price"
            class="form-control <?php $__errorArgs = ['purchase_price'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -175,28 +161,25 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
            value="<?php echo e(old('purchase_price', $produk->harga_beli ?? '')); ?>"
-           readonly>
-
+           min="0"
+           placeholder="Masukkan harga beli">
 
     <?php $__errorArgs = ['purchase_price'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-
         <div class="invalid-feedback">
-
             <?php echo e($message); ?>
 
-
         </div>
-
     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
 
 </div>
+
 
 
 
@@ -207,6 +190,7 @@ unset($__errorArgs, $__bag); ?>
 
     <input type="number"
            name="selling_price"
+           id="selling_price"
            class="form-control <?php $__errorArgs = ['selling_price'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -215,32 +199,31 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-           value="<?php echo e(old('selling_price', $produk->harga_jual ?? '')); ?>">
-
+           value="<?php echo e(old('selling_price', $produk->harga_jual ?? '')); ?>"
+           min="0"
+           readonly>
 
     <?php $__errorArgs = ['selling_price'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-
         <div class="invalid-feedback">
-
             <?php echo e($message); ?>
 
-
         </div>
-
     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
 
+    <div class="form-text">
+        Harga jual otomatis dihitung <strong>30% lebih tinggi</strong>
+        dari harga beli.
+    </div>
+
 </div>
 
-<div class="form-text mb-3">
-    Harga beli otomatis dihitung 70% dari harga jual normal (diskon 30%).
-</div>
 
 
 
@@ -248,7 +231,6 @@ unset($__errorArgs, $__bag); ?>
 <div class="mb-3">
 
     <label>Stok</label>
-
 
     <input type="number"
            name="stock"
@@ -260,34 +242,29 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-           value="<?php echo e(old('stock', $produk->stok ?? '')); ?>">
-
+           value="<?php echo e(old('stock', $produk->stok ?? '')); ?>"
+           min="0">
 
     <?php $__errorArgs = ['stock'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-
         <div class="invalid-feedback">
-
             <?php echo e($message); ?>
 
-
         </div>
-
     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
 
-
 </div>
 
 
 
-
 <button class="btn btn-success mt-3" type="submit">
+    <i class="bi bi-save"></i>
     Simpan
 </button>
 
@@ -295,6 +272,7 @@ unset($__errorArgs, $__bag); ?>
 <a href="<?php echo e(route('produk.index')); ?>"
    class="btn btn-secondary mt-3">
 
+    <i class="bi bi-arrow-left"></i>
     Kembali
 
 </a>
@@ -306,29 +284,61 @@ unset($__errorArgs, $__bag); ?>
 function previewImage(input) {
 
     const preview = document.getElementById('preview');
-
     const file = input.files[0];
 
-
-    if(file){
+    if (file) {
 
         preview.src = URL.createObjectURL(file);
-
         preview.style.display = 'block';
+
+    } else {
+
+        preview.src = '';
+        preview.style.display = 'none';
 
     }
 
 }
 
-const sellingPriceInput = document.querySelector('[name="selling_price"]');
-const purchasePriceInput = document.querySelector('[name="purchase_price"]');
 
-function updatePurchasePrice() {
-    const sellingPrice = Number(sellingPriceInput.value || 0);
-    purchasePriceInput.value = Math.round(sellingPrice * 0.7);
+
+const purchasePriceInput =
+    document.getElementById('purchase_price');
+
+const sellingPriceInput =
+    document.getElementById('selling_price');
+
+
+function updateSellingPrice() {
+
+    const purchasePrice =
+        Number(purchasePriceInput.value || 0);
+
+
+    if (purchasePrice > 0) {
+
+        const sellingPrice =
+            purchasePrice * 1.30;
+
+        sellingPriceInput.value =
+            Math.round(sellingPrice);
+
+    } else {
+
+        sellingPriceInput.value = '';
+
+    }
+
 }
 
-sellingPriceInput.addEventListener('input', updatePurchasePrice);
-updatePurchasePrice();
 
-</script><?php /**PATH C:\laragon\www\syfaielaz09_pos1\resources\views/Produk/_form.blade.php ENDPATH**/ ?>
+purchasePriceInput.addEventListener(
+    'input',
+    updateSellingPrice
+);
+
+updateSellingPrice();
+
+</script>
+
+<?php /**PATH C:\laragon\www\syfaielaz09_pos1\resources\views/Produk/_form.blade.php ENDPATH**/ ?>
