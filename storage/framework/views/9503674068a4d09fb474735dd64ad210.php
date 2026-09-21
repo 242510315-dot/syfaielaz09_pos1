@@ -162,7 +162,7 @@ unset($__errorArgs, $__bag); ?>
 
 <div class="mb-3">
 
-    <label>Harga Beli</label>
+    <label>Harga Beli (otomatis)</label>
 
     <input type="number"
            name="purchase_price"
@@ -174,7 +174,8 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-           value="<?php echo e(old('purchase_price', $produk->harga_beli ?? '')); ?>">
+           value="<?php echo e(old('purchase_price', $produk->harga_beli ?? '')); ?>"
+           readonly>
 
 
     <?php $__errorArgs = ['purchase_price'];
@@ -202,7 +203,7 @@ unset($__errorArgs, $__bag); ?>
 
 <div class="mb-3">
 
-    <label>Harga Jual</label>
+    <label>Harga Jual Normal</label>
 
     <input type="number"
            name="selling_price"
@@ -235,6 +236,10 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
 
+</div>
+
+<div class="form-text mb-3">
+    Harga beli otomatis dihitung 70% dari harga jual normal (diskon 30%).
 </div>
 
 
@@ -314,5 +319,16 @@ function previewImage(input) {
     }
 
 }
+
+const sellingPriceInput = document.querySelector('[name="selling_price"]');
+const purchasePriceInput = document.querySelector('[name="purchase_price"]');
+
+function updatePurchasePrice() {
+    const sellingPrice = Number(sellingPriceInput.value || 0);
+    purchasePriceInput.value = Math.round(sellingPrice * 0.7);
+}
+
+sellingPriceInput.addEventListener('input', updatePurchasePrice);
+updatePurchasePrice();
 
 </script><?php /**PATH C:\laragon\www\syfaielaz09_pos1\resources\views/Produk/_form.blade.php ENDPATH**/ ?>

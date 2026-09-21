@@ -116,12 +116,13 @@
 
 <div class="mb-3">
 
-    <label>Harga Beli</label>
+    <label>Harga Beli (otomatis)</label>
 
     <input type="number"
            name="purchase_price"
            class="form-control @error('purchase_price') is-invalid @enderror"
-           value="{{ old('purchase_price', $produk->harga_beli ?? '') }}">
+           value="{{ old('purchase_price', $produk->harga_beli ?? '') }}"
+           readonly>
 
 
     @error('purchase_price')
@@ -141,7 +142,7 @@
 
 <div class="mb-3">
 
-    <label>Harga Jual</label>
+    <label>Harga Jual Normal</label>
 
     <input type="number"
            name="selling_price"
@@ -159,6 +160,10 @@
 
     @enderror
 
+</div>
+
+<div class="form-text mb-3">
+    Harga beli otomatis dihitung 70% dari harga jual normal (diskon 30%).
 </div>
 
 
@@ -223,5 +228,16 @@ function previewImage(input) {
     }
 
 }
+
+const sellingPriceInput = document.querySelector('[name="selling_price"]');
+const purchasePriceInput = document.querySelector('[name="purchase_price"]');
+
+function updatePurchasePrice() {
+    const sellingPrice = Number(sellingPriceInput.value || 0);
+    purchasePriceInput.value = Math.round(sellingPrice * 0.7);
+}
+
+sellingPriceInput.addEventListener('input', updatePurchasePrice);
+updatePurchasePrice();
 
 </script>

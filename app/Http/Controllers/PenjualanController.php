@@ -113,8 +113,8 @@ class PenjualanController extends Controller
                 $item = $sale->itemPenjualan()->create([
                     'produk_id' => $produk->id,
                     'kuantitas' => $request->quantity,
-                    'harga_satuan' => $produk->harga_jual,
-                    'subtotal' => $request->quantity * $produk->harga_jual
+                    'harga_satuan' => $produk->hargaSetelahDiskon(),
+                    'subtotal' => $request->quantity * $produk->hargaSetelahDiskon()
                 ]);
             }
 

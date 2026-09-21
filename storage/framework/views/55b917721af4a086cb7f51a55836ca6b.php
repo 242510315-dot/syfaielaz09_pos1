@@ -289,6 +289,22 @@ body {
     margin-right: 5px;
 }
 
+.login-lockout {
+    background: #fff4e5;
+
+    border: 1px solid #f2d09b;
+
+    color: #76551e;
+
+    border-radius: 14px;
+
+    font-size: 13px;
+}
+
+.login-lockout strong {
+    font-size: 16px;
+}
+
 
 .footer-text {
     text-align: center;
@@ -404,8 +420,23 @@ body {
                 </div>
             <?php endif; ?>
 
+            <?php if($errors->any()): ?>
+                <div class="alert login-alert">
+                    <i class="bi bi-exclamation-triangle-fill"></i> <?php echo e($errors->first()); ?>
 
-            <form action="<?php echo e(route('auth')); ?>" method="POST">
+                </div>
+            <?php endif; ?>
+
+            <?php if(session('lockout_seconds')): ?>
+                <div class="alert login-lockout" role="status">
+                    <i class="bi bi-hourglass-split"></i>
+                    Login dikunci sementara. Coba lagi dalam
+                    <strong id="lockout-countdown"><?php echo e(session('lockout_seconds')); ?></strong> detik.
+                </div>
+            <?php endif; ?>
+
+
+            <form action="<?php echo e(route('auth')); ?>" method="POST" id="login-form">
 
                 <?php echo csrf_field(); ?>
 
@@ -421,6 +452,7 @@ body {
                         name="email"
                         class="form-control"
                         placeholder="Masukkan email"
+                        value="<?php echo e(old('email')); ?>"
                         required
                     >
 
@@ -446,7 +478,7 @@ body {
 
 
 
-                <button class="btn-login">
+                <button class="btn-login" id="login-submit" <?php if(session('lockout_seconds')): ?> disabled <?php endif; ?>>
                     <i class="bi bi-box-arrow-in-right"></i> Login
                 </button>
 
@@ -464,6 +496,32 @@ body {
     </div>
 
 </div>
+
+<?php if(session('lockout_seconds')): ?>
+    <script>
+        (() => {
+            const countdown = document.getElementById('lockout-countdown');
+            const submit = document.getElementById('login-submit');
+            let seconds = Number(countdown?.textContent || 0);
+
+            const timer = window.setInterval(() => {
+                seconds -= 1;
+
+                if (seconds <= 0) {
+                    window.clearInterval(timer);
+                    window.location.reload();
+                    return;
+                }
+
+                countdown.textContent = seconds;
+            }, 1000);
+
+            if (submit) {
+                submit.title = 'Tunggu sampai waktu habis';
+            }
+        })();
+    </script>
+<?php endif; ?>
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\syfaielaz09_pos1\resources\views/login.blade.php ENDPATH**/ ?>

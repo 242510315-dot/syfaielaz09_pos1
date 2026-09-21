@@ -62,7 +62,7 @@ class ItemPenjualanController extends Controller
                         'penjualan_id' => $sale->id,
                         'produk_id'    => $product->id,
                         'kuantitas'    => $request->quantity,
-                        'harga_satuan' => $product->harga_jual,
+                        'harga_satuan' => $product->hargaSetelahDiskon(),
                     ]);
 
                 }

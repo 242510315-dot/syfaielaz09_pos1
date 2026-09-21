@@ -112,7 +112,9 @@
                                             </div>
 
                                             <small class="text-muted">
-                                                Rp {{ number_format($product->harga_jual, 0, ',', '.') }}
+                                                Rp {{ number_format($product->hargaSetelahDiskon(), 0, ',', '.') }}
+                                                <del>Rp {{ number_format($product->harga_jual, 0, ',', '.') }}</del>
+                                                <span class="text-danger">Diskon 30%</span>
                                             </small>
 
                                         </div>
@@ -199,7 +201,8 @@
 
                         {{-- HARGA --}}
                         <td>
-                            Rp {{ number_format($item->produk->harga_jual, 0, ',', '.') }}
+                            Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}
+                            <small class="text-danger d-block">Diskon 30%</small>
                         </td>
 
 

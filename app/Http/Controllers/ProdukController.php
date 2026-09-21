@@ -51,8 +51,8 @@ class ProdukController extends Controller
     $produk->user_id = Auth::id();
     $produk->jenis_produk_id = $data['jenis_produk_id'];
     $produk->nama = $data['name'];
-    $produk->harga_beli = $data['purchase_price'];
     $produk->harga_jual = $data['selling_price'];
+    $produk->harga_beli = $produk->hargaBeliOtomatis();
     $produk->stok = $data['stock'];
 
     if ($request->hasFile('foto')) {
@@ -98,8 +98,8 @@ class ProdukController extends Controller
             'user_id' => Auth::id(),
             'jenis_produk_id' => $data['jenis_produk_id'],
             'nama' => $data['name'],
-            'harga_beli' => $data['purchase_price'],
             'harga_jual' => $data['selling_price'],
+            'harga_beli' => (int) round($data['selling_price'] * (100 - Produk::DISCOUNT_PERCENTAGE) / 100),
             'stok' => $data['stock'],
         ];
 

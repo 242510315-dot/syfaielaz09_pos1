@@ -289,6 +289,22 @@ body {
     margin-right: 5px;
 }
 
+.login-lockout {
+    background: #fff4e5;
+
+    border: 1px solid #f2d09b;
+
+    color: #76551e;
+
+    border-radius: 14px;
+
+    font-size: 13px;
+}
+
+.login-lockout strong {
+    font-size: 16px;
+}
+
 
 .footer-text {
     text-align: center;
@@ -403,8 +419,22 @@ body {
                 </div>
             @endif
 
+            @if($errors->any())
+                <div class="alert login-alert">
+                    <i class="bi bi-exclamation-triangle-fill"></i> {{ $errors->first() }}
+                </div>
+            @endif
 
-            <form action="{{ route('auth') }}" method="POST">
+            @if(session('lockout_seconds'))
+                <div class="alert login-lockout" role="status">
+                    <i class="bi bi-hourglass-split"></i>
+                    Login dikunci sementara. Coba lagi dalam
+                    <strong id="lockout-countdown">{{ session('lockout_seconds') }}</strong> detik.
+                </div>
+            @endif
+
+
+            <form action="{{ route('auth') }}" method="POST" id="login-form">
 
                 @csrf
 
@@ -420,6 +450,7 @@ body {
                         name="email"
                         class="form-control"
                         placeholder="Masukkan email"
+                        value="{{ old('email') }}"
                         required
                     >
 
@@ -445,7 +476,7 @@ body {
 
 
 
-                <button class="btn-login">
+                <button class="btn-login" id="login-submit" @if(session('lockout_seconds')) disabled @endif>
                     <i class="bi bi-box-arrow-in-right"></i> Login
                 </button>
 
@@ -463,5 +494,31 @@ body {
     </div>
 
 </div>
+
+@if(session('lockout_seconds'))
+    <script>
+        (() => {
+            const countdown = document.getElementById('lockout-countdown');
+            const submit = document.getElementById('login-submit');
+            let seconds = Number(countdown?.textContent || 0);
+
+            const timer = window.setInterval(() => {
+                seconds -= 1;
+
+                if (seconds <= 0) {
+                    window.clearInterval(timer);
+                    window.location.reload();
+                    return;
+                }
+
+                countdown.textContent = seconds;
+            }, 1000);
+
+            if (submit) {
+                submit.title = 'Tunggu sampai waktu habis';
+            }
+        })();
+    </script>
+@endif
 
 @endsection

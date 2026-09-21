@@ -10,13 +10,28 @@ class Produk extends Model
 {
     use HasFactory;
 
+    public const DISCOUNT_PERCENTAGE = 30;
+
     protected $table = 'produk';
 
     protected $fillable = [
         'nama',
         'jenis_produk_id',
-        // Tambahkan field lainnya di sini...
+        'harga_beli',
+        'harga_jual',
+        'stok',
+        'foto',
     ];
+
+    public function hargaSetelahDiskon(): int
+    {
+        return (int) round($this->harga_jual * (100 - self::DISCOUNT_PERCENTAGE) / 100);
+    }
+
+    public function hargaBeliOtomatis(): int
+    {
+        return $this->hargaSetelahDiskon();
+    }
 
     /**
      * Relasi Produk ke JenisProduk.
